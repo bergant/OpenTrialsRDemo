@@ -1,0 +1,181 @@
+---
+title: "Using OpenTrials API with R"
+author: "Darko Bergant"
+date: '`r format(Sys.time(), "%Y-%m-%d")`'
+output: 
+  html_document: 
+    keep_md: yes
+    toc: yes
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# About OpenTrials
+
+From [OpenTrials](opentrials.net) page: _OpenTrials is a collaboration between
+Open Knowledge and Dr Ben Goldacre from the University of Oxford DataLab. It
+aims to locate, match, and share all publicly accessible data and documents, on
+all trials conducted, on all medicines and other treatments, globally._
+
+In addition to [web search](http://explorer.opentrials.net/search), the 
+OpenTrials database is also accessible via API, documented as Open API (Swagger)
+format. 
+
+This short tutorial shows how to use this API from R with 
+[rapiclient](https://github.com/bergant/rapiclient).
+
+# Issues
+
+Report **rapiclient** bugs on [rapiclient issues](https://github.com/bergant/rapiclient/issues)
+
+Report errors with OpenTrials data (for example, if a trial has incorrect
+treatments tagged to it) on [this
+page](http://explorer.opentrials.net/flag-error)
+
+# Preparation
+Install rapiclient from Github:
+```{r eval=FALSE}
+devtools::install_github("bergant/rapiclient")
+```
+
+Use `get_api` and `get_operations` to create R client functions:
+
+```{r read_api, cache=TRUE}
+library(rapiclient)
+open_trials_api <- get_api("http://api.opentrials.net/v1/swagger.yaml")
+open_trials_schemas <- get_schemas(open_trials_api)
+open_trials <- get_operations(open_trials_api, handle_response = content_or_stop)
+
+names(open_trials)
+```
+
+
+# Search Trials
+
+`searchTrials` returns trials based on a search query. By default, it’ll search 
+in all of a trial’s attributes. Parameter `q` is a 
+[ElasticSearch](https://www.elastic.co/guide/en/elasticsearch/reference/2.3/query-dsl-query-string-query.html#query-string-syntax)
+query string. Parameters `page` (1 to 100) and `per_page` (10 to 100) are
+optional.
+
+```{r cache=TRUE}
+trials <- open_trials$searchTrials(q='public_title:(depressive OR depression)')
+
+trials$total_count
+length(trials$items)
+```
+
+There are `r trials$total_count` trials matching this search query and
+the first `r length(trials$items)` already waiting in the `trials$items` list.
+
+Take a look at the richness of the trial search result schema
+before using the results:
+
+```{r schema, fig.height=9, fig.width=8}
+library(DiagrammeR)
+grViz(
+  rapiclient::get_schema_graphviz_dot(
+    open_trials_api, 
+    open_trials_api$definitions$TrialSearchResults
+  ) 
+)
+```
+
+Print some of the trial attributes in a table:
+
+```{r warning=FALSE, message=FALSE}
+library(dplyr)
+library(knitr)
+
+lapply(trials$items, function(x) { data.frame(
+    title = gsub("\n","",x$public_title), 
+    source_id = x$source_id,
+    sample_size = ifelse(length(x$target_sample_size)==0, NA, x$target_sample_size),
+    status = x$status,
+    registered = format(as.POSIXct(x$registration_date)),
+    publications = length(x$publications),
+    stringsAsFactors = FALSE
+)}) %>% 
+  bind_rows %>% 
+  kable(caption = "Table: some data from trials search result")
+
+```
+
+# Tips & Tricks
+
+Print a function to see its documentation. For example: 
+```{r}
+open_trials$getTrial
+```
+
+If parameter name is a reserved word in R, quote it with backticks:
+```{r cache=TRUE}
+conditions <- 
+  open_trials$autocomplete(`in` = "condition", q = "addiction", per_page = 100) %>% 
+  getElement("items") %>% 
+  bind_rows %>%  
+  select(id, name)
+```
+
+Note that operations are not vectorised. You have to use the *apply functions to
+get the data for arguments with length > 1. For example, count the trials for
+each condition:
+
+```{r cache=TRUE}
+conditions$trials <- 
+  sapply(conditions$id, function(x) {
+    open_trials$searchTrials(q = sprintf("conditions.id:(%s)", x))[["total_count"]] 
+  })  
+  
+conditions %>% arrange(desc(trials)) %>% top_n(30, wt = trials) %>% knitr::kable(.)
+```
+
+# OpenTrials Operations
+From Swagger definition ("http://api.opentrials.net/v1/swagger.yaml") 
+
+```{r results='asis', echo=FALSE}
+
+for(path in open_trials_api$paths) {
+  for(action in path) {
+    cat("**", action$operationId, "**\n\n", sep = "")
+    cat("Description:", action$description, "\n")
+    cat("\n")
+  }
+}
+
+```
+
+# List of Data Sources
+OpenTrials data sources:
+```{r list_sources, message=FALSE, warning=FALSE, cache=TRUE}
+sources <- open_trials$list()
+knitr::kable(bind_rows(sources), caption = "Table of sources")
+```
+
+# R Packages
+**Attached packages:**
+```{r list_packages, results='asis', warning=FALSE, cache=TRUE}
+sessionInfo()$otherPkgs %>%
+  names %>% 
+  lapply(citation) %>% 
+  lapply(first) %>% 
+  lapply(print, style = "html") %>% 
+  invisible
+
+```
+
+**Other loaded packages in R session**
+
+```{r results='asis', cache=TRUE}
+sessionInfo()$loadedOnly %>%
+  lapply(function(x) paste(x$Package, x$Version, x$URL)) %>% 
+  paste(collapse = " - ") %>% 
+  cat
+
+```
+
+
+
