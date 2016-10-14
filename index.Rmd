@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # About OpenTrials
 
-From [OpenTrials](opentrials.net) page: _OpenTrials is a collaboration between
+From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration between
 Open Knowledge and Dr Ben Goldacre from the University of Oxford DataLab. It
 aims to locate, match, and share all publicly accessible data and documents, on
 all trials conducted, on all medicines and other treatments, globally._
@@ -29,11 +29,13 @@ This short tutorial shows how to use this API from R with
 
 # Issues
 
-Report **rapiclient** bugs on [rapiclient issues](https://github.com/bergant/rapiclient/issues)
+Report **rapiclient** bugs on [rapiclient issues](https://github.com/bergant/rapiclient/issues).
+Source R Markdown for this page is [here](https://github.com/bergant/OpenTrialsRDemo).
 
 Report errors with OpenTrials data (for example, if a trial has incorrect
 treatments tagged to it) on [this
-page](http://explorer.opentrials.net/flag-error)
+page](http://explorer.opentrials.net/flag-error).
+
 
 # Preparation
 Install rapiclient from Github:
