@@ -1,7 +1,7 @@
 ---
 title: "Using OpenTrials API with R"
 author: "Darko Bergant"
-date: '`r format(Sys.time(), "%Y-%m-%d")`'
+date: '2016-10-14, updated: `r format(Sys.time(), "%Y-%m-%d")`'
 output: 
   html_document: 
     keep_md: yes
@@ -15,14 +15,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # About OpenTrials
 
-From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration between
-Open Knowledge and Dr Ben Goldacre from the University of Oxford DataLab. It
-aims to locate, match, and share all publicly accessible data and documents, on
-all trials conducted, on all medicines and other treatments, globally._
+From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration
+between Open Knowledge and Dr Ben Goldacre from the University of Oxford
+DataLab. It aims to locate, match, and share all publicly accessible data and
+documents, on all trials conducted, on all medicines and other treatments,
+globally._
 
 In addition to [web search](http://explorer.opentrials.net/search), the 
-OpenTrials database is also accessible via API, documented as Open API (Swagger)
-format. 
+OpenTrials database is also accessible via
+[API](https://api.opentrials.net/v1/docs/), documented as Open API (Swagger) 
+format.
 
 This short tutorial shows how to use this API from R with 
 [rapiclient](https://github.com/bergant/rapiclient).
@@ -76,7 +78,7 @@ the first `r length(trials$items)` already waiting in the `trials$items` list.
 Take a look at the richness of the trial search result schema
 before using the results:
 
-```{r schema, fig.height=9, fig.width=8}
+```{r schema, fig.height=9, fig.width=9}
 library(DiagrammeR)
 grViz(
   rapiclient::get_schema_graphviz_dot(
