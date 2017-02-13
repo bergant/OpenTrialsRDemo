@@ -6,11 +6,11 @@ Darko Bergant
 
 # About OpenTrials
 
-From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration
-between Open Knowledge and Dr Ben Goldacre from the University of Oxford
-DataLab. It aims to locate, match, and share all publicly accessible data and
-documents, on all trials conducted, on all medicines and other treatments,
-globally._
+From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration 
+between [Open Knowledge International](https://okfn.org/) and Dr Ben Goldacre 
+from the University of Oxford [DataLab](https://ebmdatalab.net/). It aims to
+locate, match, and share all publicly accessible data and documents, on all
+trials conducted, on all medicines and other treatments, globally._
 
 In addition to [web search](http://explorer.opentrials.net/search), the 
 OpenTrials database is also accessible via
@@ -75,7 +75,7 @@ trials$total_count
 ```
 
 ```
-## [1] 4613
+## [1] 4050
 ```
 
 ```r
@@ -86,7 +86,7 @@ length(trials$items)
 ## [1] 20
 ```
 
-There are 4613 trials matching this search query and
+There are 4050 trials matching this search query and
 the first 20 already waiting in the `trials$items` list.
 
 Take a look at the richness of the trial search result schema
@@ -103,8 +103,8 @@ grViz(
 )
 ```
 
-<!--html_preserve--><div id="htmlwidget-57d2c9793cebf555a20f" style="width:864px;height:864px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-57d2c9793cebf555a20f">{"x":{"diagram":"digraph schema {\nrankdir=\"LR\"\n\n\n\"TrialSearchResults\"[shape = \"Mrecord\", label=\"TrialSearchResults|total_count (integer)\\litems (array[Trial])\\l\"]\n\n\"Trial\"[shape = \"Mrecord\", label=\"Trial|id (string)\\lsource_id (string)\\lidentifiers (object)\\lurl (string)\\lpublic_title (string)\\lbrief_summary (string)\\ltarget_sample_size (integer)\\lgender (string)\\lhas_published_results (boolean)\\lregistration_date (string)\\lcompletion_date (string)\\lstatus (string)\\lrecruitment_status (string)\\llocations (array[TrialLocation])\\linterventions (array[Intervention])\\lconditions (array[Condition])\\lpersons (array[TrialPerson])\\lorganisations (array[TrialOrganisation])\\lrecords (array[RecordSummary])\\lpublications (array[PublicationSummary])\\ldiscrepancies (object)\\ldocuments (array[DocumentSummary])\\lsources (object)\\lrisks_of_bias (array[RiskOfBias])\\l\"]\n\n\"TrialLocation\"[shape = \"Mrecord\", label=\"TrialLocation|role (string)\\l* (Location)\\l\"]\n\n\"Location\"[shape = \"Mrecord\", label=\"Location|id (string)\\lname (string)\\ltype (string)\\l\"]\n\n\"Intervention\"[shape = \"Mrecord\", label=\"Intervention|id (string)\\lname (string)\\lurl (string)\\ltype (string)\\l\"]\n\n\"Condition\"[shape = \"Mrecord\", label=\"Condition|id (string)\\lname (string)\\lurl (string)\\l\"]\n\n\"TrialPerson\"[shape = \"Mrecord\", label=\"TrialPerson|role (string)\\l* (Person)\\l\"]\n\n\"Person\"[shape = \"Mrecord\", label=\"Person|id (string)\\lname (string)\\lurl (string)\\l\"]\n\n\"TrialOrganisation\"[shape = \"Mrecord\", label=\"TrialOrganisation|role (string)\\l* (Organisation)\\l\"]\n\n\"Organisation\"[shape = \"Mrecord\", label=\"Organisation|id (string)\\lname (string)\\lurl (string)\\l\"]\n\n\"RecordSummary\"[shape = \"Mrecord\", label=\"RecordSummary|id (string)\\lurl (string)\\lsource_id (string)\\l\"]\n\n\"PublicationSummary\"[shape = \"Mrecord\", label=\"PublicationSummary|id (string)\\lurl (string)\\ltitle (string)\\lsource_id (string)\\lsource_url (string)\\l\"]\n\n\"DocumentSummary\"[shape = \"Mrecord\", label=\"DocumentSummary|id (string)\\lname (string)\\lurl (string)\\ltype (DocumentType)\\ltrials (array[TrialSummary])\\lfile (FileSummary)\\lfda_application (FDAApplication)\\lsource_id (string)\\lsource_url (string)\\l\"]\n\n\"DocumentType\"[shape = \"Mrecord\", label=\"DocumentType|\"]\n\n\"TrialSummary\"[shape = \"Mrecord\", label=\"TrialSummary|id (string)\\lurl (string)\\l\"]\n\n\"FileSummary\"[shape = \"Mrecord\", label=\"FileSummary|id (string)\\lsha1 (string)\\lsource_url (string)\\ldocumentcloud_id (string)\\l\"]\n\n\"FDAApplication\"[shape = \"Mrecord\", label=\"FDAApplication|id (string)\\ldrug_name (string)\\lactive_ingredients (string)\\lfda_approvals (array[FDAApproval])\\lorganisation (Organisation)\\ltype (string)\\lurl (string)\\l\"]\n\n\"FDAApproval\"[shape = \"Mrecord\", label=\"FDAApproval|id (string)\\lsupplement_number (integer)\\ltype (string)\\laction_date (string)\\lnotes (string)\\lfda_application (FDAApplication)\\l\"]\n\n\"RiskOfBias\"[shape = \"Mrecord\", label=\"RiskOfBias|id (string)\\lsource_id (string)\\lsource_url (string)\\lstudy_id (string)\\lrisk_of_bias_criteria (array[RiskOfBiasCriteria])\\l\"]\n\n\"RiskOfBiasCriteria\"[shape = \"Mrecord\", label=\"RiskOfBiasCriteria|id (string)\\lname (string)\\lvalue (string)\\l\"]\n\n\n\"TrialSearchResults\"->\"Trial\"\n\"Trial\"->\"TrialLocation\"\n\"Trial\"->\"Intervention\"\n\"Trial\"->\"Condition\"\n\"Trial\"->\"TrialPerson\"\n\"Trial\"->\"TrialOrganisation\"\n\"Trial\"->\"RecordSummary\"\n\"Trial\"->\"PublicationSummary\"\n\"Trial\"->\"DocumentSummary\"\n\"Trial\"->\"RiskOfBias\"\n\"TrialLocation\"->\"Location\"\n\"TrialPerson\"->\"Person\"\n\"TrialOrganisation\"->\"Organisation\"\n\"DocumentSummary\"->\"DocumentType\"\n\"DocumentSummary\"->\"TrialSummary\"\n\"DocumentSummary\"->\"FileSummary\"\n\"DocumentSummary\"->\"FDAApplication\"\n\"FDAApplication\"->\"FDAApproval\"\n\"FDAApplication\"->\"Organisation\"\n\"FDAApproval\"->\"FDAApplication\"\n\"RiskOfBias\"->\"RiskOfBiasCriteria\"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-dfac77449f7e264987ba" style="width:864px;height:864px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dfac77449f7e264987ba">{"x":{"diagram":"digraph schema {\nrankdir=\"LR\"\n\n\n\"TrialSearchResults\"[shape = \"Mrecord\", label=\"TrialSearchResults|total_count (integer)\\litems (array[Trial])\\l\"]\n\n\"Trial\"[shape = \"Mrecord\", label=\"Trial|id (string)\\lsource_id (string)\\lidentifiers (object)\\lurl (string)\\lpublic_title (string)\\lbrief_summary (string)\\ltarget_sample_size (integer)\\lgender (string)\\lhas_published_results (boolean)\\lregistration_date (string)\\lcompletion_date (string)\\lresults_exemption_date (string)\\lstatus (string)\\lrecruitment_status (string)\\llocations (array[TrialLocation])\\linterventions (array[Intervention])\\lconditions (array[Condition])\\lpersons (array[TrialPerson])\\lorganisations (array[TrialOrganisation])\\lrecords (array[RecordSummary])\\lpublications (array[PublicationSummary])\\ldiscrepancies (object)\\ldocuments (array[DocumentSummary])\\lsources (object)\\lrisks_of_bias (array[RiskOfBias])\\l\"]\n\n\"TrialLocation\"[shape = \"Mrecord\", label=\"TrialLocation|id (string)\\lname (string)\\ltype (string)\\lrole (string)\\l\"]\n\n\"Intervention\"[shape = \"Mrecord\", label=\"Intervention|id (string)\\lname (string)\\lurl (string)\\ltype (string)\\l\"]\n\n\"Condition\"[shape = \"Mrecord\", label=\"Condition|id (string)\\lname (string)\\lurl (string)\\l\"]\n\n\"TrialPerson\"[shape = \"Mrecord\", label=\"TrialPerson|id (string)\\lname (string)\\lurl (string)\\lrole (string)\\l\"]\n\n\"TrialOrganisation\"[shape = \"Mrecord\", label=\"TrialOrganisation|id (string)\\lname (string)\\lurl (string)\\lrole (string)\\l\"]\n\n\"RecordSummary\"[shape = \"Mrecord\", label=\"RecordSummary|id (string)\\lurl (string)\\lsource_id (string)\\lis_primary (boolean)\\llast_verification_date (string)\\l\"]\n\n\"PublicationSummary\"[shape = \"Mrecord\", label=\"PublicationSummary|id (string)\\lurl (string)\\ltitle (string)\\lsource_id (string)\\lsource_url (string)\\l\"]\n\n\"DocumentSummary\"[shape = \"Mrecord\", label=\"DocumentSummary|id (string)\\lname (string)\\lurl (string)\\ltype (DocumentType)\\ltrials (array[TrialSummary])\\lfile (FileSummary)\\lfda_application (FDAApplication)\\lsource_id (string)\\lsource_url (string)\\l\"]\n\n\"TrialSummary\"[shape = \"Mrecord\", label=\"TrialSummary|id (string)\\lurl (string)\\lpublic_title (string)\\l\"]\n\n\"FileSummary\"[shape = \"Mrecord\", label=\"FileSummary|id (string)\\lsha1 (string)\\lsource_url (string)\\ldocumentcloud_id (string)\\l\"]\n\n\"FDAApplication\"[shape = \"Mrecord\", label=\"FDAApplication|id (string)\\ldrug_name (string)\\lactive_ingredients (string)\\lfda_approvals (array[FDAApproval])\\lorganisation (Organisation)\\ltype (string)\\lurl (string)\\l\"]\n\n\"FDAApproval\"[shape = \"Mrecord\", label=\"FDAApproval|id (string)\\lsupplement_number (integer)\\ltype (string)\\laction_date (string)\\lnotes (string)\\lfda_application (FDAApplication)\\l\"]\n\n\"Organisation\"[shape = \"Mrecord\", label=\"Organisation|id (string)\\lname (string)\\lurl (string)\\l\"]\n\n\"RiskOfBias\"[shape = \"Mrecord\", label=\"RiskOfBias|id (string)\\lsource_id (string)\\lsource_url (string)\\lstudy_id (string)\\lrisk_of_bias_criteria (array[RiskOfBiasCriteria])\\l\"]\n\n\"RiskOfBiasCriteria\"[shape = \"Mrecord\", label=\"RiskOfBiasCriteria|id (string)\\lname (string)\\lvalue (string)\\l\"]\n\n\n\"TrialSearchResults\"->\"Trial\"\n\"Trial\"->\"TrialLocation\"\n\"Trial\"->\"Intervention\"\n\"Trial\"->\"Condition\"\n\"Trial\"->\"TrialPerson\"\n\"Trial\"->\"TrialOrganisation\"\n\"Trial\"->\"RecordSummary\"\n\"Trial\"->\"PublicationSummary\"\n\"Trial\"->\"DocumentSummary\"\n\"Trial\"->\"RiskOfBias\"\n\"DocumentSummary\"->\"DocumentType\"\n\"DocumentSummary\"->\"TrialSummary\"\n\"DocumentSummary\"->\"FileSummary\"\n\"DocumentSummary\"->\"FDAApplication\"\n\"FDAApplication\"->\"FDAApproval\"\n\"FDAApplication\"->\"Organisation\"\n\"FDAApproval\"->\"FDAApplication\"\n\"RiskOfBias\"->\"RiskOfBiasCriteria\"\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Print some of the trial attributes in a table:
 
@@ -123,6 +123,7 @@ lapply(trials$items, function(x) { data.frame(
     stringsAsFactors = FALSE
 )}) %>% 
   bind_rows %>% 
+  arrange(desc(sample_size)) %>% 
   kable(caption = "Table: some data from trials search result")
 ```
 
@@ -130,28 +131,28 @@ lapply(trials$items, function(x) { data.frame(
 
 Table: Table: some data from trials search result
 
-title                                                                                                                                                                                                                    source_id    sample_size  status     registered    publications
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  ----------  ------------  ---------  -----------  -------------
-Study of the Efficacy and Safety of Initial Administration of 17 mg Vortioxetine Intravenously With 10 mg/Day Vortioxetine Orally in Patients With Major Depressive Disorder                                             nct                   54  ongoing    2016-09-28               0
-A Study to Evaluate the Efficacy, Safety and Tolerability of Fixed Doses of Intranasal Esketamine in Japanese Participants With Treatment Resistant Depression                                                           nct                  183  ongoing    2016-09-27               0
-Cost- Effectiveness and Quality of Life Assessment in Bipolar Disorder Depressive Episode                                                                                                                                nct                   78  complete   2016-09-25               0
-Measurement-based Care for Depression in Resource-Poor Settings                                                                                                                                                          nct                  140  ongoing    2016-09-24               0
-Dallas 2K: A Natural History Study of Depression                                                                                                                                                                         nct                 2000  ongoing    2016-09-23               0
-Dynamic Learning in Depression                                                                                                                                                                                           nct                  120  ongoing    2016-09-22               0
-Magnetic Stimulation of the Brain in Schizophrenia or Depression                                                                                                                                                         nct                   80  ongoing    2016-09-14               0
-A Study to Investigate the Safety, Tolerability, and Pharmacodynamics of JNJ-54175446 in Participants With Major Depressive Disorder                                                                                     nct                   64  ongoing    2016-09-13               0
-Cost- Effectiveness and Quality of Life Assessment in Major Depression Disorder                                                                                                                                          nct                   68  complete   2016-09-11               0
-Augmentation of Treatment-Resistant Depression With An Analog of the Neuroactive Steroid Allopregnanolone                                                                                                                nct                   10  ongoing    2016-09-09               0
-A Study to Evaluate the Effects of a Single-Dose and Repeat-Administration of Intranasal Esketamine on On-Road Driving in Participants With Major Depressive Disorder                                                    nct                   24  ongoing    2016-09-01               0
-Neural and Cognitive Mechanisms of Depression and Anxiety: a Multimodal MRI Study                                                                                                                                        nct                  150  ongoing    2016-08-30               0
-Oral ketamine for treating depression    Orale ketamine als aanvullende behandeling bij patiënten met een therapieresistente depressie                                                                                   euctr                 NA  ongoing    2016-08-30               0
-Oral ketamine for treating depression    Orale ketamine als aanvullende behandeling bij patiënten met een therapieresistente depressie                                                                                   euctr                 NA  ongoing    2016-08-30               0
-Development of objective measures for depression, bipolar disorder and dementia by quantifying facial expression, body movement, and voice data during clinical interview and daily activity utilizing wearable device   ictrp                300  ongoing    2016-08-25               0
-Augmenting Internet-Based Cognitive Behavioral Therapy for Major Depressive Disorder With Low-Level Light Therapy                                                                                                        nct                  200  ongoing    2016-08-24               0
-The Impact of Three Distinct Exercise Types on Fatigue, Anxiety, and Depression in Parkinson's Disease                                                                                                                   nct                   32  ongoing    2016-08-24               0
-CanDirect: Effectiveness of a Telephone-supported Depression Self-care Intervention for Cancer Survivors                                                                                                                 nct                  286  ongoing    2016-08-24               0
-Brain Function in Depression and Insulin Resistance                                                                                                                                                                      nct                   60  ongoing    2016-08-23               0
-Repetitive Transcranial Magnetic Stimulationfor 2010 criteria diagnosed Fibromyalgia with a comorbidity of depression:  Evidence from a pilot Randomized Sham-Controlled Study                                           ictrp                 40  ongoing    2016-08-22               0
+title                                                                                                         source_id    sample_size  status    registered    publications
+------------------------------------------------------------------------------------------------------------  ----------  ------------  --------  -----------  -------------
+Long-term Safety Study of Rapastinel as Adjunctive Therapy in Patients With Major Depressive Disorder         nct                  500  ongoing   2016-12-21               0
+Mental Health in Adults and Children- Frugal Innovations (MAC-FI): Adult Depression Component                 nct                  256  ongoing   2016-12-20               0
+Reducing Fetal Exposure to Maternal Depression to Improve Infant Risk Mechanisms                              nct                  240  ongoing   2017-01-04               0
+Conventional Bilateral rTMS vs. Bilateral Theta Burst Stimulation for Late-Life Depression                    nct                  220  ongoing   2016-12-16               0
+Preeclampsia Research on Vitamin D, Inflammation, & Depression                                                nct                  200  ongoing   2016-12-08               0
+Study to Evaluate the Efficacy and Safety of Adjunctive Pimavanserin in Major Depressive Disorder (CLARITY)   nct                  188  ongoing   2017-01-10               0
+Stepped Care for Depression in Heart Failure                                                                  nct                  180  ongoing   2016-12-15               0
+Mantra Meditation in Major Depression                                                                         nct                  130  ongoing   2016-12-14               0
+Interpersonal Counseling (IPC) for Treatment of Depression in Adolescents                                     nct                  120  ongoing   2016-12-20               0
+Efficacy of H7-Coil DTMS Compared to H1-Coil DTMS in Subjects With Major Depression Disorder (MDD)            nct                  105  ongoing   2017-01-05               0
+Dynamics of Inflammation and Its Blockade on Motivational Circuitry in Depression                             nct                   80  ongoing   2016-12-28               0
+Brief CBT for the Treatment of Depression During Inpatient Hospitalization                                    nct                   75  ongoing   2017-01-04               0
+A Study to Evaluate SAGE-217 in Subjects With Moderate to Severe Major Depressive Disorder                    nct                   62  ongoing   2016-12-14               0
+Serum Cortisol Levels in Patients With Anxiety and Depression With Symptomatic Oral Lichen Planus             nct                   60  ongoing   2017-01-04               0
+Are Bright Lights and Regulated Sleep Effective Treatment for Depression?                                     nct                   60  ongoing   2017-01-03               0
+Effects of Online Cognitive Control Training on Rumination and Depressive Symptoms                            nct                   52  ongoing   2016-12-19               0
+Emotional Awareness and SElf-regulation for Depression in Patients With Hypertension (EASE) Study             nct                   48  ongoing   2017-01-05               0
+CSE v. Epidural for Postpartum Depression                                                                     nct                   46  ongoing   2017-01-11               0
+Integrating HIV and Depression Self-Care to Improve Adherence in Perinatal Women                              nct                   40  ongoing   2017-01-06               0
+The Experience of Older Adults Facing Depression for the First Time in Old Age                                nct                   15  ongoing   2016-12-23               0
 
 # Tips & Tricks
 
@@ -176,7 +177,7 @@ If parameter name is a reserved word in R, quote it with backticks:
 
 ```r
 conditions <- 
-  open_trials$autocomplete(`in` = "condition", q = "addiction", per_page = 100) %>% 
+  open_trials$autocomplete(`in` = "condition", q = "depression depressive", per_page = 100) %>% 
   getElement("items") %>% 
   bind_rows %>%  
   select(id, name)
@@ -192,47 +193,22 @@ conditions$trials <-
   sapply(conditions$id, function(x) {
     open_trials$searchTrials(q = sprintf("conditions.id:(%s)", x))[["total_count"]] 
   })  
-  
+
 conditions %>% arrange(desc(trials)) %>% top_n(30, wt = trials) %>% knitr::kable(.)
 ```
 
 
 
-id                                     name                                                      trials
--------------------------------------  -------------------------------------------------------  -------
-12f8f74b-bff8-49ce-bba8-98268271f3b3   Opiate Addiction                                              53
-0eec2750-8c1e-11e6-be70-0242ac12000f   Addiction                                                     49
-f2a93773-ec26-4fa0-9f75-a5b920aac395   Drug Addiction                                                41
-faa9dce0-8c2e-11e6-be70-0242ac12000f   Nicotine addiction                                            33
-a1bbbf9d-e64e-40be-89b8-6fa3418e583d   Cocaine Addiction                                             30
-0b2f9b78-8c1a-11e6-be70-0242ac12000f   Smoking addiction                                             25
-b96c69de-8c3b-11e6-be70-0242ac12000f   Heroin addiction                                              20
-3ff7db3d-07df-43eb-94d1-fef0a7bfe610   Opioid Addiction                                              14
-1ba56d32-8c21-11e6-be70-0242ac12000f   Tobacco Addiction                                             13
-ee16cd52-238e-42b7-8556-a1c3d29e6e8c   Alcohol Addiction                                             13
-e84efb49-7b06-495a-8941-aba6a111ce3f   Nicotine Addiction with the desire to quit smoking            13
-0ee556e6-8c1e-11e6-be70-0242ac12000f   Mental and Behavioural Disorders: Addiction                    8
-a63ceada-adc5-41a2-adcf-135dd9efe7f4   Exercise Addiction                                             7
-81741e64-c26c-40e9-8c31-91e45ed1ebd0   Substance Addiction                                            5
-40461e86-e5ff-4ec4-8c13-2636bdbcdc98   Internet Addiction                                             5
-2ec0ff7b-562d-4482-967b-3a053281fba7   opium addiction                                                4
-0e329957-3a71-4dc9-ad84-c9a3c4f5c453   Methamphetamine Addiction                                      4
-65396a20-e73b-4c33-a154-8bb510b723b1   Addictions                                                     3
-5311bfed-a186-40fd-b50b-09407a195b65   Amphetamine Addiction                                          3
-ba8aa58e-0e01-4fb8-9373-230b1f425f63   Opioid drug addiction                                          3
-2cf7ee08-8d0b-11e6-988b-0242ac12000c   Food Addiction                                                 2
-2ad535de-8cae-11e6-988b-0242ac12000c   Cigarette Addiction                                            2
-614a0bac-f698-4f9c-a40f-0728f9a2806e   Smopking (nicotine addiction/Tobacco addiction)                2
-7a23c9f0-2811-41ba-b43b-fa9dc9813353   pornographic addiction                                         2
-8306af24-636a-4c82-aea3-c06738c09561   Narcotic Addiction                                             2
-c9c2dd22-1f75-472d-974a-f632d092f9b8   treatment resistant heroin addiction                           2
-94a37d12-5a73-47aa-ab1d-2c1ec3b03cf9   Nicotine addiction/smoking                                     2
-2cbed2c4-ae9a-498d-a278-94d717467fd8   Internet addiction disorder                                    2
-36cf59ac-0b09-4d04-b5cc-76b71e44664b   Patients with opioid addiction                                 2
-d9c97b1c-c4b0-4a48-bc65-0b173130c94e   Addiction to illicit heroin                                    2
-1983ca29-118f-4213-a552-78298006ea87   Opiate addiction (detoxification from illicit opiates)         2
-3f04b9b8-bbdc-42b6-95d2-ee044be66a42   Subjects have a diagnosis of opiate addiction                  2
-853f313c-83c8-4bb7-bc68-d2923862531c   treatment of dependence in alcohol addiction                   2
+id                                     name                                                                                                                                                       trials
+-------------------------------------  --------------------------------------------------------------------------------------------------------------------------------------------------------  -------
+0188f4f0-10b1-44f2-b949-c95bee23b4e4   F32.9 - Depressive episode, unspecified                                                                                                                         4
+004267e9-a20b-49d2-8d73-4313ce59db78   Topic: Mental Health Research Network, Primary Care Research Network for England; Subtopic: Depression, Not Assigned; Disease: Depression, All Diseases         4
+016ae19a-8c44-11e6-be70-0242ac12000f   Mental Depression                                                                                                                                               2
+01008ccb-c73d-4f15-8c10-2cb7ec1c65c9   Late Life Depression (LLD)                                                                                                                                      1
+005a7e4e-b74d-4e96-a685-317923dab7c8   Depression Anxiety Sleep disturbances Circadian disturbances                                                                                                    1
+00ae9a73-58f0-4871-b704-8399ffa79449   Major depressive disorder (episode or recurrent), moderately severe as principal DSM-IV diagnosis                                                               1
+00a154f8-8c6f-11e6-be70-0242ac12000f   Moderate to severe, or mild persistent, episode of Major Depression (DSM-IV) who initiate a new antidepressant treatment episode                                1
+
 
 # OpenTrials Operations
 From Swagger definition ("http://api.opentrials.net/v1/swagger.yaml") 
@@ -320,59 +296,37 @@ id                       name                                source_url         
 -----------------------  ----------------------------------  -----------------------------------------------------  ---------  -----------------------------------------------------------
 fda                      U.S. Food and Drug Administration   http://www.fda.gov                                     other      NA                                                         
 cochrane_schizophrenia   Cochrane Schizophrenia Group        http://schizophrenia.cochrane.org/                     other      NA                                                         
+euctr                    EU Clinical Trials Register         https://www.clinicaltrialsregister.eu                  register   https://www.clinicaltrialsregister.eu/disclaimer.html      
+nct                      ClinicalTrials.gov                  https://clinicaltrials.gov                             register   https://clinicaltrials.gov/ct2/about-site/terms-conditions 
 hra                      Health Research Authority           http://www.hra.nhs.uk                                  other      http://www.hra.nhs.uk/terms-conditions/                    
+ictrp                    WHO ICTRP                           http://www.who.int/trialsearch/                        register   http://www.who.int/ictrp/search/download/en/               
 fdadl                    FDA Drug Labels                     https://open.fda.gov                                   other      https://open.fda.gov/terms/                                
 icdcm                    ICD-CM                              https://www.cms.gov/Medicare/Coding/ICD10/index.html   other      NA                                                         
 icdpcs                   ICD-PCS                             https://www.cms.gov/Medicare/Coding/ICD10/index.html   other      NA                                                         
 pubmed                   PubMed                              http://www.ncbi.nlm.nih.gov/pubmed                     other      https://www.ncbi.nlm.nih.gov/home/about/policies.shtml     
-euctr                    EU Clinical Trials Register         https://www.clinicaltrialsregister.eu                  register   https://www.clinicaltrialsregister.eu/disclaimer.html      
-ictrp                    WHO ICTRP                           http://www.who.int/trialsearch/                        register   http://www.who.int/ictrp/search/download/en/               
-nct                      ClinicalTrials.gov                  https://clinicaltrials.gov                             register   https://clinicaltrials.gov/ct2/about-site/terms-conditions 
 
-# R Packages
+# Other R Packages
 **Attached packages:**
-
-```r
-sessionInfo()$otherPkgs %>%
-  names %>% 
-  lapply(citation) %>% 
-  lapply(first) %>% 
-  lapply(print, style = "html") %>% 
-  invisible
-```
-
 <p>Xie Y (2016).
 <em>knitr: A General-Purpose Package for Dynamic Report Generation in R</em>.
-R package version 1.14, <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>. 
+R package version 1.15.1, <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>. 
 </p>
-<p>Wickham H and Francois R (2015).
+<p>Wickham H and Francois R (2016).
 <em>dplyr: A Grammar of Data Manipulation</em>.
-R package version 0.4.3, <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>. 
+R package version 0.5.0, <a href="https://CRAN.R-project.org/package=dplyr">https://CRAN.R-project.org/package=dplyr</a>. 
 </p>
-<p>Sveidqvist K, Bostock M, Pettitt C, Daines M, Kashcha A and Iannone R (2016).
+<p>Sveidqvist K, Bostock M, Pettitt C, Daines M, Kashcha A and Iannone R (2017).
 <em>DiagrammeR: Create Graph Diagrams and Flowcharts Using R</em>.
-R package version 0.8.3, <a href="https://github.com/rich-iannone/DiagrammeR">https://github.com/rich-iannone/DiagrammeR</a>. 
-</p>
-<p>Bergant D (2016).
-<em>rapiclient: Dynamic Open API (Swagger) Client</em>.
-R package version 0.1.0.9004, <a href="https://github.com/bergant/rapiclient">https://github.com/bergant/rapiclient</a>. 
+R package version 0.9.0, <a href="https://CRAN.R-project.org/package=DiagrammeR">https://CRAN.R-project.org/package=DiagrammeR</a>. 
 </p>
 
 **Other loaded packages in R session**
 
-
-```r
-sessionInfo()$loadedOnly %>%
-  lapply(function(x) paste(x$Package, x$Version, x$URL)) %>% 
-  paste(collapse = " - ") %>% 
-  cat
-```
-
-Rcpp 0.12.7 http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html,
-https://github.com/RcppCore/Rcpp - rstudioapi 0.5  - magrittr 1.5  - munsell 0.4.3  - colorspace 1.2-6  - R6 2.2.0 https://github.com/wch/R6/ - highr 0.6 https://github.com/yihui/highr - stringr 1.0.0  - httr 1.2.1 https://github.com/hadley/httr - plyr 1.8.3 http://had.co.nz/plyr, https://github.com/hadley/plyr - visNetwork 0.2.1 https://github.com/DataKnowledge/visNetwork - tools 3.2.5  - parallel 3.2.5  - rsvg 0.5 https://github.com/jeroenooms/rsvg
-https://www.opencpu.org/posts/svg-release - DBI 0.5-1 http://rstats-db.github.io/DBI - htmltools 0.3.5 https://github.com/rstudio/htmltools - lazyeval 0.2.0  - yaml 2.1.13  - assertthat 0.1  - digest 0.6.10 http://dirk.eddelbuettel.com/code/digest.html - tibble 1.2 https://github.com/hadley/tibble - formatR 1.4 http://yihui.name/formatR - htmlwidgets 0.7 https://github.com/ramnathv/htmlwidgets - codetools 0.2-14  - curl 2.1 https://github.com/jeroenooms/curl#readme - evaluate 0.9 https://github.com/hadley/evaluate - rmarkdown 1.1 http://rmarkdown.rstudio.com - stringi 1.0-1 http://stringi.rexamine.com/ http://site.icu-project.org/
-http://www.unicode.org/ - scales 0.4.0 https://github.com/hadley/scales - jsonlite 1.1 http://arxiv.org/abs/1403.2805,
-https://www.opencpu.org/posts/jsonlite-a-smarter-json-encoder
+Rcpp 0.12.9 http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html,
+https://github.com/RcppCore/Rcpp - highr 0.6 https://github.com/yihui/highr - RColorBrewer 1.1-2  - influenceR 0.1.0 https://github.com/rcc-uchicago/influenceR - plyr 1.8.4 http://had.co.nz/plyr, https://github.com/hadley/plyr - viridis 0.3.4 https://github.com/sjmgarnier/viridis - tools 3.3.2  - digest 0.6.11 http://dirk.eddelbuettel.com/code/digest.html - jsonlite 1.2 https://arxiv.org/abs/1403.2805,
+https://www.opencpu.org/posts/jsonlite-a-smarter-json-encoder - evaluate 0.10 https://github.com/hadley/evaluate - tibble 1.2 https://github.com/hadley/tibble - gtable 0.2.0  - rgexf 0.15.3 http://bitbucket.org/gvegayon/rgexf, http://www.ggvega.com - igraph 1.0.1 http://igraph.org - rstudioapi 0.6  - DBI 0.5-1 http://rstats-db.github.io/DBI - curl 2.3 https://github.com/jeroenooms/curl#readme - yaml 2.1.14  - gridExtra 2.2.1 https://github.com/baptiste/gridextra - httr 1.2.1 https://github.com/hadley/httr - stringr 1.1.0 https://github.com/hadley/stringr - htmlwidgets 0.8 https://github.com/ramnathv/htmlwidgets - rprojroot 1.1 https://github.com/krlmlr/rprojroot,
+https://krlmlr.github.io/rprojroot - grid 3.3.2  - R6 2.2.0 https://github.com/wch/R6/ - Rook 1.1-1  - XML 3.98-1.5 http://www.omegahat.net/RSXML - rmarkdown 1.3 http://rmarkdown.rstudio.com - ggplot2 2.2.1 http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2 - magrittr 1.5  - backports 1.0.4 https://github.com/mllg/backports - scales 0.4.1 https://github.com/hadley/scales - codetools 0.2-15  - htmltools 0.3.5 https://github.com/rstudio/htmltools - assertthat 0.1  - colorspace 1.3-2 https://hclwizard.org/ - brew 1.0-6  - stringi 1.1.2 http://www.gagolewski.com/software/stringi/
+http://site.icu-project.org/ http://www.unicode.org/ - visNetwork 1.0.2 https://github.com/datastorm-open/visNetwork - lazyeval 0.2.0  - munsell 0.4.3 
 
 
 

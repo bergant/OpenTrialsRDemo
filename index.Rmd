@@ -15,11 +15,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # About OpenTrials
 
-From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration
-between Open Knowledge and Dr Ben Goldacre from the University of Oxford
-DataLab. It aims to locate, match, and share all publicly accessible data and
-documents, on all trials conducted, on all medicines and other treatments,
-globally._
+From [OpenTrials](http://opentrials.net) page: _OpenTrials is a collaboration 
+between [Open Knowledge International](https://okfn.org/) and Dr Ben Goldacre 
+from the University of Oxford [DataLab](https://ebmdatalab.net/). It aims to
+locate, match, and share all publicly accessible data and documents, on all
+trials conducted, on all medicines and other treatments, globally._
 
 In addition to [web search](http://explorer.opentrials.net/search), the 
 OpenTrials database is also accessible via
@@ -104,6 +104,7 @@ lapply(trials$items, function(x) { data.frame(
     stringsAsFactors = FALSE
 )}) %>% 
   bind_rows %>% 
+  arrange(desc(sample_size)) %>% 
   kable(caption = "Table: some data from trials search result")
 
 ```
@@ -118,10 +119,11 @@ open_trials$getTrial
 If parameter name is a reserved word in R, quote it with backticks:
 ```{r cache=TRUE}
 conditions <- 
-  open_trials$autocomplete(`in` = "condition", q = "addiction", per_page = 100) %>% 
+  open_trials$autocomplete(`in` = "condition", q = "depression depressive", per_page = 100) %>% 
   getElement("items") %>% 
   bind_rows %>%  
   select(id, name)
+
 ```
 
 Note that operations are not vectorised. You have to use the *apply functions to
@@ -133,9 +135,10 @@ conditions$trials <-
   sapply(conditions$id, function(x) {
     open_trials$searchTrials(q = sprintf("conditions.id:(%s)", x))[["total_count"]] 
   })  
-  
+
 conditions %>% arrange(desc(trials)) %>% top_n(30, wt = trials) %>% knitr::kable(.)
 ```
+
 
 # OpenTrials Operations
 From Swagger definition ("http://api.opentrials.net/v1/swagger.yaml") 
@@ -159,21 +162,21 @@ sources <- open_trials$list()
 knitr::kable(bind_rows(sources), caption = "Table of sources")
 ```
 
-# R Packages
+# Other R Packages
 **Attached packages:**
-```{r list_packages, results='asis', warning=FALSE, cache=TRUE}
+```{r list_packages, results='asis', warning=FALSE, cache=TRUE, echo = FALSE}
+unloadNamespace("rapiclient")
 sessionInfo()$otherPkgs %>%
-  names %>% 
+  names(.) %>%
   lapply(citation) %>% 
   lapply(first) %>% 
   lapply(print, style = "html") %>% 
   invisible
-
 ```
 
 **Other loaded packages in R session**
 
-```{r results='asis', cache=TRUE}
+```{r results='asis', cache=TRUE, echo=FALSE}
 sessionInfo()$loadedOnly %>%
   lapply(function(x) paste(x$Package, x$Version, x$URL)) %>% 
   paste(collapse = " - ") %>% 
